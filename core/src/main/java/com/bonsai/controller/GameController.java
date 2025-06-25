@@ -93,7 +93,7 @@ public class GameController {
         terrains.set(row * MAP_SIZE + col, terrainFactory.createTerrain(terrain));
     }
 
-    public Terrain getTerrian(int x, int y) {
+    public Terrain getTerrain(int x, int y) {
         return this.model.getTerrain(x, y);
 
     }

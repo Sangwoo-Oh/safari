@@ -421,7 +421,7 @@ public abstract class Animal extends Entity {
     private void removeChangedPonds() {
         List<Terrain> toRemove = new ArrayList<>();
         for (Terrain pond : visitedPond) {
-            Terrain currentTerrain = gameController.getTerrian((int) pond.getPosition().z, (int) pond.getPosition().x);
+            Terrain currentTerrain = gameController.getTerrain((int) pond.getPosition().z, (int) pond.getPosition().x);
 //            System.out.println("1111X: " + currentTerrain.getX() + ", Z: " + currentTerrain.getZ());
 
             if (!(currentTerrain instanceof Pond)) {

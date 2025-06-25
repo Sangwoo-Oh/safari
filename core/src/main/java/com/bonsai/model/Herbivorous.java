@@ -157,7 +157,7 @@ public abstract class Herbivorous extends Animal {
     private void removeChangePlants() {
         List<Terrain> toRemove = new ArrayList<>();
         for (Terrain terrain : visitedTerrains) {
-            Terrain currentTerrain = gameController.getTerrian((int) terrain.getPosition().x, (int) terrain.getPosition().z);
+            Terrain currentTerrain = gameController.getTerrain((int) terrain.getPosition().x, (int) terrain.getPosition().z);
             if (!(currentTerrain instanceof Tree || currentTerrain instanceof Bush)) {
                 toRemove.add(terrain);
             }

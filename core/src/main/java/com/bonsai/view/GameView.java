@@ -356,35 +356,35 @@ public class GameView extends ScreenAdapter implements InputProcessor {
 
         if(selectedInventory != null){
 
-            Terrain terrain = controller.getTerrian(tileX, tileZ);
+            Terrain terrain = controller.getTerrain(tileX, tileZ);
 
             if(terrain instanceof Entrance || terrain instanceof  Exit){
                 return;
             }
 
             if (selectedInventory == inventoryMenu.getTreeButton() && this.sideMenu.getInventoryMenu().HasTerrian(selectedInventory)){
-                if(! (controller.getTerrian(tileX, tileZ) instanceof Tree)){
+                if(! (controller.getTerrain(tileX, tileZ) instanceof Tree)){
                     controller.updateTerrain(tileX, tileZ, new Tree(tileX, tileZ));
                     addInventory(terrain);
                     controller.RemoveInventoryCount(Tree.class);
                     this.inventoryMenu.updateInventoryCount();
                 }
             }else if(selectedInventory == inventoryMenu.getPondButton() && this.sideMenu.getInventoryMenu().HasTerrian(selectedInventory)){
-                if(! (controller.getTerrian(tileX, tileZ) instanceof Pond)){
+                if(! (controller.getTerrain(tileX, tileZ) instanceof Pond)){
                     this.controller.updateTerrain(tileX, tileZ, new Pond(tileX, tileZ));
                     addInventory(terrain);
                     controller.RemoveInventoryCount(Pond.class);
                     this.inventoryMenu.updateInventoryCount();
                 }
             }else if(selectedInventory == inventoryMenu.getRoadButton()  && this.sideMenu.getInventoryMenu().HasTerrian(selectedInventory)){
-                if(! (controller.getTerrian(tileX, tileZ) instanceof Road)){
+                if(! (controller.getTerrain(tileX, tileZ) instanceof Road)){
                     this.controller.updateTerrain(tileX, tileZ, new Road(tileX, tileZ));
                     addInventory(terrain);
                     controller.RemoveInventoryCount(Road.class);
                     this.inventoryMenu.updateInventoryCount();
                 }
             }else if(selectedInventory == inventoryMenu.getBushButton()  && this.sideMenu.getInventoryMenu().HasTerrian(selectedInventory)){
-                if(! (controller.getTerrian(tileX, tileZ) instanceof Bush)){
+                if(! (controller.getTerrain(tileX, tileZ) instanceof Bush)){
                     this.controller.updateTerrain(tileX, tileZ, new Bush(tileX, tileZ));
                     addInventory(terrain);
                     controller.RemoveInventoryCount(Bush.class);
@@ -406,7 +406,7 @@ public class GameView extends ScreenAdapter implements InputProcessor {
 
         if(selected != null) {
 
-            Terrain terrain = controller.getTerrian(tileX, tileZ);
+            Terrain terrain = controller.getTerrain(tileX, tileZ);
 
             if(terrain instanceof Entrance || terrain instanceof  Exit){
                 return;
@@ -418,17 +418,17 @@ public class GameView extends ScreenAdapter implements InputProcessor {
                     controller.updateTerrain(tileX, tileZ, new Tree(tileX, tileZ));
                 }
             }else if(selected == shopMenu.getPondButton() && controller.getCapital().subtractMoney(shopMenu.PondPrice)){
-                if(! (controller.getTerrian(tileX, tileZ) instanceof Pond)){
+                if(! (controller.getTerrain(tileX, tileZ) instanceof Pond)){
                     addInventory(terrain);
                     this.controller.updateTerrain(tileX, tileZ, new Pond(tileX, tileZ));
                 }
             }else if(selected == shopMenu.getRoadButton()  && controller.getCapital().subtractMoney(shopMenu.RoadPrice)){
-                if(! (controller.getTerrian(tileX, tileZ) instanceof Road)){
+                if(! (controller.getTerrain(tileX, tileZ) instanceof Road)){
                     addInventory(terrain);
                     this.controller.updateTerrain(tileX, tileZ, new Road(tileX, tileZ));
                 }
             }else if(selected == shopMenu.getBushButton()  && controller.getCapital().subtractMoney(shopMenu.BushPrice)){
-                if(! (controller.getTerrian(tileX, tileZ) instanceof Bush)){
+                if(! (controller.getTerrain(tileX, tileZ) instanceof Bush)){
                     addInventory(terrain);
                     this.controller.updateTerrain(tileX, tileZ, new Bush(tileX, tileZ));
                 }
