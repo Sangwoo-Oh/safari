@@ -40,7 +40,6 @@ public class MapView {
     private Map<ModelInstance, Animal> modelInstanceAnimalMap = new HashMap<>();
     private Map<ModelInstance, Jeep> modelInstanceJeepMap = new HashMap<>();
     private Map<ModelInstance, Ranger> modelInstanceRangerMap = new HashMap<>();
-    private ViewUtils viewUtils;
 
     public MapView(GameController controller) {
         this.controller = controller;
@@ -51,7 +50,8 @@ public class MapView {
         wallTextureNight = new Texture(Gdx.files.internal("landscape_night.png"));
         setWalls(wallTextureDay);
 
-
+        updateAnimal();
+        setAnimal(this.animals);
 
     }
 
@@ -73,7 +73,6 @@ public class MapView {
         Model wallHorizontalLonger = builder.createBox(fullSize+100.0f, wallHeight, wallThickness, material, usage);
         ModelInstance northWall = new ModelInstance(wallHorizontal);
         northWall.transform.setTranslation(fullSize / 2f - offset, wallHeight / 2f, -wallThickness / 2f - offset);
-        Model wallVertical = builder.createBox(fullSize, wallHeight, wallThickness, material, usage);
         ModelInstance westWall = new ModelInstance(wallHorizontalLonger);
         westWall.transform.rotate(Vector3.Y, 90);
         westWall.transform.setTranslation(-wallThickness / 2f - offset, wallHeight / 2f, fullSize / 2f - offset);
@@ -207,6 +206,14 @@ public class MapView {
         }
     }
 
+    public void updateAnimalPositions() {
+        for (int i = 0; i < animalInstances.size(); i++) {
+            Animal animal = controller.getAnimalsFromModel().get(i);
+            ModelInstance instance = animalInstances.get(i);
+            instance.transform.setTranslation(animal.getX(), 5.0f, animal.getZ());
+        }
+    }
+
     public void render(ModelBatch modelBatch, Environment environment, float delta) {
         refreshMap();
 
@@ -226,13 +233,13 @@ public class MapView {
 
 
         controller.updateAnimals(delta);
-//        for(Animal animal : controller.getGameModel().getAnimalToRemove()){
-//            controller.removeAnimal(animal);
-//        }
+        if (controller.getAnimalsFromModel().size() != animalInstances.size()) {
+            this.animals = controller.getAnimals();
+            setAnimal(this.animals);
+        } else {
+            updateAnimalPositions();
+        }
 
-        setAnimal(this.animals);
-
-//        updateAnimalInstances(controller.getAnimalsFromModel());
         controller.updateHumans(delta);
         for(Human human : controller.getGameModel().getHumansToRemove()){
             controller.removeHuman(human);
@@ -256,14 +263,6 @@ public class MapView {
         }
 
         updateTourist();
-    }
-
-    public void updateAnimalInstances(List<Animal> animals) {
-        animalInstances.clear();
-        for (Animal animal : animals) {
-            AnimalView view = controller.getAnimalView(animal);
-            animalInstances.addAll(view.getModelInstances(animal.getX(), animal.getZ()));
-        }
     }
 
     public boolean shouldRenderAnimal(Animal animal) {

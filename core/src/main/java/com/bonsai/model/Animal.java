@@ -302,7 +302,7 @@ public abstract class Animal extends Entity {
         float elapsedTime = time.getTotalElapsedGameHours() / 24f - this.thirstTime;
         if (elapsedTime >= this.thirst) {
             this.die();
-            System.out.println("too thirsty");
+            //System.out.println("too thirsty");
         } else if (elapsedTime >= (float) this.thirst / x) {
             this.thirsty = true;
         }
@@ -408,7 +408,7 @@ public abstract class Animal extends Entity {
 //                System.out.println(isDrinking);
             }
         } else {
-            System.out.println("closest pond is null");
+            //System.out.println("closest pond is null");
         }
     }
 
