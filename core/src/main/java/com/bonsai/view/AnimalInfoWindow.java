@@ -59,9 +59,4 @@ public class AnimalInfoWindow extends Window {
         add(locationChipButton).pad(10);
         pack();
     }
-
-    public void showAnimal(Animal animal) {
-        this.targetAnimal = animal;
-        setVisible(true);
-    }
 }

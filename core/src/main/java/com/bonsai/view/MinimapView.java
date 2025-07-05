@@ -52,12 +52,6 @@ public class MinimapView {
         float minimapHeight = 100f;
         float tileSize = minimapWidth / mapSize;
 
-//        float xPosition = Gdx.graphics.getWidth() - minimapWidth - 210f;
-//        float yPosition = Gdx.graphics.getHeight() - minimapHeight - 10f;
-//        xPosition = Gdx.graphics.getWidth() * 0.52f;
-//        float yPosition = Gdx.graphics.getHeight() * 0.8f;
-//        System.out.println(xPosition);
-
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         Terrain[][] map = controller.getGameModel().getMap();
         animals = controller.getAnimalsFromModel();

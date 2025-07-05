@@ -510,22 +510,4 @@ public class GameView extends ScreenAdapter implements InputProcessor {
     public boolean mouseMoved(int i, int i1) {
         return false;
     }
-
-    public void setSelectedCheckBox(CheckBox checkBox) {
-        this.selectedChecBox = checkBox;
-    }
-
-    public void generateRandomPoacher(float delta) {
-        long currentDay = this.controller.getGameModel().getTime().getTotalElapsedGameHours() / 24;
-
-        if (currentDay != lastCheckedDay) {
-            lastCheckedDay = currentDay;
-            Animal animal = this.controller.getGameModel().getRandomAnimal();
-            if (r.nextFloat() < 0.02f && animal != null) {
-                this.controller.addPoacher(0,0,this.controller, animal);
-                mapView.updateHuman();
-                System.out.println("poacher apper");
-            }
-        }
-    }
 }

@@ -18,10 +18,7 @@ public class InventoryMenu extends Table {
     GameView gameView;
     private Skin skin;
     private final int buttonSize = 64;
-    private CheckBox treeButton, pondButton, roadButton,bushButton, grassButton,
-                        jeepButton, rengerButton,
-                        carnivores1Button, carnivores2Button,
-                        herbivorous1Button,herbivorous2Button;
+    private CheckBox treeButton, pondButton, roadButton,bushButton, grassButton;
     private Inventory inventory;
 
     private int TreeCount, PondCount, RoadCount, BushCount;
@@ -42,10 +39,6 @@ public class InventoryMenu extends Table {
         pondButton          = makeButton("pond.png");
         roadButton          = makeButton("road.png");
         bushButton          = makeButton("bush_test.png");
-        carnivores1Button   = makeButton("Lion.png");
-        carnivores2Button   = makeButton("sheep.png");
-        herbivorous1Button  = makeButton("horse.png");
-        herbivorous2Button  = makeButton("sheep.png");
         grassButton         = makeButton("Grass_top_view_test.png");
 
         this.TreeCount = inventory.getCount(Tree.class);
@@ -125,10 +118,6 @@ public class InventoryMenu extends Table {
         checkBox.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                // ユーザーがこのチェックボックスをON/OFFしたタイミングで呼ばれる
-//                checkBox.setProgrammaticChangeEvents(false);
-//                checkBox.setChecked(true);
-//                checkBox.setProgrammaticChangeEvents(true);
 
                 onCheckBoxChanged();
 

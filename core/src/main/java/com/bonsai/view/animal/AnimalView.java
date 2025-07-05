@@ -19,12 +19,4 @@ public abstract class AnimalView {
         return this.modelInstance;
     }
     public abstract List<ModelInstance> getModelInstances(float x, float z);
-    public abstract List<ModelInstance> updateModelInstances(float x, float z);
-
-    public List<ModelInstance> updateModelInstancesTest(float x, float z) {
-        modelInstance.transform.setToTranslation(x, 0f, z);
-        return modelInstances;
-    }
-
-
 }

@@ -8,7 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.bonsai.controller.GameController;
 import com.bonsai.model.Time;
-import com.sun.tools.javac.comp.Check;
 
 public class HUDView {
     private Stage stage;

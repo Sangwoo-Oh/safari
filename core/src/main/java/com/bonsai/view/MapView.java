@@ -105,7 +105,7 @@ public class MapView {
 
         // 壁マテリアルを更新
         Material newMat = new Material(TextureAttribute.createDiffuse(newTexture));
-        for (ModelInstance wall : wallInstances) {
+         for (ModelInstance wall : wallInstances) {
             wall.materials.get(0).clear();
             wall.materials.get(0).set(newMat);
         }

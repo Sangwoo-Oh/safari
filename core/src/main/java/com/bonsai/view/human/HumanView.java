@@ -15,15 +15,6 @@ public abstract class HumanView {
     HumanView(){
         modelInstances = new ArrayList<>();
     }
-    public List<ModelInstance> getModelInstancesTest(){
-        return this.modelInstances;
-    };
-
-    public ModelInstance getModelInstanceTMP(){
-        return this.modelInstance;
-    }
 
     public abstract List<ModelInstance> getModelInstances(float x, float z);
-    public abstract List<ModelInstance> updateModelInstances(float x, float z);
-
 }

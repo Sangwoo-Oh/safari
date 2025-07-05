@@ -19,25 +19,14 @@ import com.bonsai.view.animal.AnimalView;
 import java.util.List;
 
 public class AnimalSelector {
-
-    private final Camera camera;
-    private final Environment environment;
-    private final ModelBatch modelBatch;
     private GameController controller;
-    private ViewUtils viewUtils;
     private final ModelInstance highlightInstance;
     private final Model highlightModel;
-    private final Vector3 intersection = new Vector3();
-    private final Plane groundPlane = new Plane(Vector3.Y, 0);
     private final float tileSize = 10f;
 
 
     public AnimalSelector(Camera camera, Environment environment, GameController controller) {
-        this.camera = camera;
-        this.environment = environment;
-        this.modelBatch = new ModelBatch();
         this.controller = controller;
-        this.viewUtils = new ViewUtils(camera, this.controller.getMapSize());
 
         ModelBuilder modelBuilder = new ModelBuilder();
         highlightModel = modelBuilder.createBox(
@@ -47,55 +36,6 @@ public class AnimalSelector {
         );
         highlightInstance = new ModelInstance(highlightModel);
         highlightInstance.transform.setToTranslation(0, -999, 0);
-    }
-
-
-    public Animal selectAnimalUnderCursor(Camera camera, List<Animal> animals) {
-        Ray ray = camera.getPickRay(Gdx.input.getX(), Gdx.input.getY());
-
-        Animal closestAnimal = null;
-        float closestDistance = Float.MAX_VALUE;
-
-//        for (Animal animal : animals) {
-//            AnimalView view = controller.getAnimalView(animal);
-//            ModelInstance instance = view.getModelInstanceTMP(); // もしくは modelInstances.get(0)
-//
-//            BoundingBox bounds = new BoundingBox();
-//            instance.calculateBoundingBox(bounds);
-//            bounds.mul(instance.transform); // transform に従って位置補正
-//
-//            Vector3 intersection = new Vector3();
-//            if (Intersector.intersectRayBounds(ray, bounds, intersection)) {
-//                float dist = ray.origin.dst2(intersection); // カメラからの距離を計算（近い順に選びたい）
-//                if (dist < closestDistance) {
-//                    closestDistance = dist;
-//                    closestAnimal = animal;
-//                }
-//            }
-//        }
-        for (Animal animal : controller.getGameModel().getAnimals()) {
-            AnimalView view = controller.getAnimalView(animal);
-            ModelInstance instance = view.getModelInstanceTMP(); // モデル取得
-            BoundingBox bounds = new BoundingBox();
-            bounds.ext(0f, 0f, 0.5f);
-            instance.calculateBoundingBox(bounds);
-            bounds.mul(instance.transform); // 🔥←重要！
-
-            Vector3 intersection = new Vector3();
-            System.out.println("Bounds: " + bounds);
-
-
-            if (Intersector.intersectRayBounds(ray, bounds, intersection)) {
-                System.out.println("HIT Animal at " + animal.getPosition());
-                return animal;
-            }
-        }
-        if(closestAnimal == null){
-            System.out.println("animals is null");
-        }
-        return closestAnimal; // null なら未選択
-
-
     }
 
     public Animal selectClosestAnimal(Camera camera, List<Animal> animals) {

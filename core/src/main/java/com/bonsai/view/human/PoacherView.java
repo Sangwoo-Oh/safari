@@ -39,9 +39,6 @@ public class PoacherView extends HumanView {
 
         ModelInstance treeModelInstance = new ModelInstance(model);
         modelInstances.add(treeModelInstance);
-//        treeModelInstance.transform.setToTranslation(0, 5f, );
-//        treeModelInstance.transform.rotate(Vector3.X, 180f);
-//        treeModelInstance.transform.rotate(Vector3.Z, -90f);
         this.modelInstance = treeModelInstance;
 
     }
@@ -52,14 +49,6 @@ public class PoacherView extends HumanView {
         treeModelInstance.transform.setToTranslation(x, 5f, z);
         treeModelInstance.transform.rotate(Vector3.X, 180f);
         treeModelInstance.transform.rotate(Vector3.Z, -90f);
-
-        return modelInstances;
-    }
-
-    @Override
-    public List<ModelInstance> updateModelInstances(float x, float z) {
-        ModelInstance treeModelInstance = modelInstances.get(0);
-        treeModelInstance.transform.setToTranslation(x, 5f, z);
 
         return modelInstances;
     }
