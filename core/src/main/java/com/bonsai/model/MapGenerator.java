@@ -1,6 +1,5 @@
 package com.bonsai.model;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.MathUtils;
 
 import java.util.ArrayList;

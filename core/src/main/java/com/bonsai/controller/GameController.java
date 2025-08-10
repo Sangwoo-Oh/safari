@@ -131,13 +131,6 @@ public class GameController {
         this.model.setTerrain(x, z, terrain);
     }
 
-    //    public void updateAnimals(float delta) {
-//        List<Animal> animals = model.getAnimals();
-//        for (Animal al : animals) {
-//            al.update(delta);
-//        }
-//
-//    }
     public void updateAnimals(float delta) {
         List<Animal> animals = model.getAnimals();
         Iterator<Animal> iterator = animals.iterator();  // 動物リストのイテレータを取得
@@ -152,15 +145,6 @@ public class GameController {
         }
     }
 
-
-    //    public void updateHumans(float delta){
-//        List<Human> humans = model.getHumans();
-//        Iterator<Human> iterator = humans.iterator();
-//        while (iterator.hasNext()) {
-//            Human human = iterator.next();
-//            human.update(delta, model.getTime());
-//        }
-//    }
     public List<Animal> getAnimalsFromModel() {
         return model.getAnimals();
     }
@@ -289,9 +273,7 @@ public class GameController {
         return this.InventoryCheckBox;
     }
 
-    //    public void addAnimal() {
-//        this.model.addAnimal();
-//    }
+
     public void addSheep(float x, float z) {
         this.model.addSheep(x,z);
     }

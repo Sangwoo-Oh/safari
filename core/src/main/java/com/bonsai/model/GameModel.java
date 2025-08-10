@@ -91,9 +91,6 @@ public class GameModel {
         this.map = mapGenerator.getTemplate();
     }
 
-    //    public void addAnimal(){
-//        animals.add(new HerbivorousA(0,0,0, time));
-//    }
     public void addSheep(float tileX, float tileZ) {
         Animal sheep = new Sheep(tileX, 0, tileZ, time);
         animals.add(sheep);
@@ -283,7 +280,6 @@ public class GameModel {
             .collect(Collectors.toList());
 
         if (freeAnimals.isEmpty()) {
-//            System.out.println("No free animals available.");
             return null;
         }
 

@@ -30,8 +30,6 @@ public abstract class Carnivores extends Animal {
                     if(((int) this.getX() / MAP_SIZE) - 1 <= (int) animal.getX() / MAP_SIZE && (int) animal.getX() / MAP_SIZE <= ((int) this.getX() / MAP_SIZE) + 1 && ((int) this.getZ() / MAP_SIZE) - 1 <= (int) animal.getZ() / MAP_SIZE && (int) animal.getZ() / MAP_SIZE <= ((int) this.getZ() / MAP_SIZE) + 1){
                         targetHerbivore = (Sheep) animal;
                         eatHerbivore(animal, time);
-//                        System.out.println("sheepの座標: (" + (int) animal.getX() / MAP_SIZE + ", " + (int) animal.getZ() / MAP_SIZE + ")");
-//                        System.out.println("lionの座標: (" + (int) this.getX() / MAP_SIZE + ", " + (int) this.getZ() / MAP_SIZE + ")");
                         break;
                     }
                 }
