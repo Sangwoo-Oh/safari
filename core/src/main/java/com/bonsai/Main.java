@@ -46,6 +46,7 @@ public class Main extends Game {
         ModelBatch batch = new ModelBatch();
         GameView gView = new GameView(batch, gController);
 
+        gController.setView(gView);
         setScreen(gView);
 //        setScreen(mainMenu);
     }

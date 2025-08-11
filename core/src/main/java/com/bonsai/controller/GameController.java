@@ -1,6 +1,8 @@
 package com.bonsai.controller;
 
 
+import com.badlogic.gdx.graphics.g3d.Environment;
+import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.bonsai.controller.factory.AnimalViewFactory;
@@ -8,6 +10,7 @@ import com.bonsai.controller.factory.HumanViewFactory;
 import com.bonsai.controller.factory.JeepViewFactory;
 import com.bonsai.controller.factory.TerrainViewFactory;
 import com.bonsai.model.*;
+import com.bonsai.view.GameView;
 import com.bonsai.view.animal.*;
 import com.bonsai.view.human.HumanView;
 import com.bonsai.view.human.PoacherView;
@@ -15,10 +18,7 @@ import com.bonsai.view.human.RangerView;
 import com.bonsai.view.jeep.JeepView;
 import com.bonsai.view.terrain.*;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class GameController {
@@ -32,6 +32,8 @@ public class GameController {
     private int MAP_SIZE;
     private boolean needUpdate;
     private Random r;
+    private GameView gameView;
+    private Map<Animal, AnimalView> animalModelToAnimalView;
 
 
     private GameController(GameModel model) {
@@ -46,8 +48,12 @@ public class GameController {
         registerHuman();
         MAP_SIZE = this.model.getMAP_SIZE();
         r = new Random();
+        animalModelToAnimalView = new HashMap<>();
     }
 
+    public void setView(GameView gameView) {
+        this.gameView = gameView;
+    }
     private void registerTerrains() {
         terrainFactory.registerTerrain(Grass.class, () -> new GrassView());
         terrainFactory.registerTerrain(Road.class, () -> new RoadView());
@@ -129,20 +135,6 @@ public class GameController {
     public void updateTerrain(int x, int z, Terrain terrain) {
         if (x < 0 || x >= MAP_SIZE || z < 0 || z >= MAP_SIZE) return;
         this.model.setTerrain(x, z, terrain);
-    }
-
-    public void updateAnimals(float delta) {
-        List<Animal> animals = model.getAnimals();
-        Iterator<Animal> iterator = animals.iterator();  // 動物リストのイテレータを取得
-        while (iterator.hasNext()) {
-            Animal animal = iterator.next();
-            animal.update(delta, model.getTime(), model.getAnimals());  // 動物の状態を更新
-
-            // 動物が削除対象かどうかを確認し、削除
-            if (animal.getMarkedForRemoval()) {
-                iterator.remove();  // 動物をリストから削除
-            }
-        }
     }
 
     public List<Animal> getAnimalsFromModel() {
@@ -399,5 +391,21 @@ public class GameController {
         if (this.model == null) {
             this.model = model;
         }
+    }
+
+    public void addAnimal() {
+        // モデルレイヤーにアニマルを追加
+        Animal animal = model.addAnimal();
+        // モデルに対応するビューを生成
+        AnimalView animalView = animalFactory.createAnimal(animal);
+        // ビューレイヤーにアニマルビューを追加
+        gameView.mapView.addAnimalView(animalView);
+        // マップにモデルとビューの対応関係を登録
+        animalModelToAnimalView.put(animal, animalView);
+    }
+
+    public void updateAnimals(ModelBatch modelBatch, Environment environment, float delta) {
+        model.updateAnimals(delta);
+        gameView.mapView.updateView(modelBatch, environment, model.getAnimals(), animalModelToAnimalView);
     }
 }

@@ -27,7 +27,7 @@ public class GameView extends ScreenAdapter implements InputProcessor {
     private PerspectiveCamera camera;
     private ModelBatch modelBatch;    // 3D描画用
     private Environment environment;
-    private MapView mapView;         // タイルや地面を管理するクラス
+    public MapView mapView;         // タイルや地面を管理するクラス
     private float lastTouchX, lastTouchY;
     private boolean isDragging = false;
     private GameController controller;
@@ -488,6 +488,10 @@ public class GameView extends ScreenAdapter implements InputProcessor {
 
     @Override
     public boolean keyDown(int i) {
+        if (i == Input.Keys.L) {
+            controller.addAnimal();
+            return true;
+        }
         return false;
     }
 

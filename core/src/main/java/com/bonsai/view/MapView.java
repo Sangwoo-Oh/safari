@@ -217,52 +217,38 @@ public class MapView {
     public void render(ModelBatch modelBatch, Environment environment, float delta) {
         refreshMap();
 
-
-
         for (ModelInstance modelInstance : modelInstances) {
             modelBatch.render(modelInstance, environment);
         }
+//
+//        for(ModelInstance humanInstance : humanInstances){
+//            modelBatch.render(humanInstance, environment);
+//        }
+//
+//        for (ModelInstance jeepInstance : jeepInstances) {
+//            modelBatch.render(jeepInstance, environment);
+//        }
+//
+        // update animals
+        controller.updateAnimals(modelBatch, environment, delta);
 
-        for(ModelInstance humanInstance : humanInstances){
-            modelBatch.render(humanInstance, environment);
-        }
+//
+//        controller.updateHumans(delta);
+//        for(Human human : controller.getGameModel().getHumansToRemove()){
+//            controller.removeHuman(human);
+//        }
+//        setHuman(this.humans);
+//
+//        controller.updateJeeps(delta);
+//        setJeep(this.jeeps);
+//
 
-        for (ModelInstance jeepInstance : jeepInstances) {
-            modelBatch.render(jeepInstance, environment);
-        }
-
-
-        controller.updateAnimals(delta);
-        if (controller.getAnimalsFromModel().size() != animalInstances.size()) {
-            this.animals = controller.getAnimals();
-            setAnimal(this.animals);
-        } else {
-            updateAnimalPositions();
-        }
-
-        controller.updateHumans(delta);
-        for(Human human : controller.getGameModel().getHumansToRemove()){
-            controller.removeHuman(human);
-        }
-        setHuman(this.humans);
-
-        controller.updateJeeps(delta);
-        setJeep(this.jeeps);
-
-        for (ModelInstance animalIns : animalInstances) {
-            Animal animalModel = modelInstanceAnimalMap.get(animalIns);
-            if (animalModel!= null) {
-                if (shouldRenderAnimal(animalModel) && !animalModel.getMarkedForRemoval()) {
-                    modelBatch.render(animalIns, environment);
-                }
-            }
-        }
-
+        // update walls
         for (ModelInstance wall : wallInstances) {
             modelBatch.render(wall, environment);
         }
 
-        updateTourist();
+//        updateTourist();
     }
 
     public boolean shouldRenderAnimal(Animal animal) {
@@ -298,7 +284,19 @@ public class MapView {
         modelInstances.clear();
     }
 
+    public void addAnimalView(AnimalView animalView) {
+        animals.add(animalView);
+    }
 
+    public void updateView(ModelBatch modelBatch, Environment environment, List<Animal> animalModelList, Map<Animal, AnimalView> animalAnimalViewMap) {
+        for (Animal animalModel : animalModelList) {
+            AnimalView animalView = animalAnimalViewMap.get(animalModel);
+            ModelInstance animalModelInstance = animalView.getModelInstances(animalModel.getX(), animalModel.getZ()).get(0);
+            if (shouldRenderAnimal(animalModel) && !animalModel.getMarkedForRemoval()) {
+                modelBatch.render(animalModelInstance, environment);
+            }
+        }
+    }
 
     public List<AnimalView> getAnimalView(){
         return animals;

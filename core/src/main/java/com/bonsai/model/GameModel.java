@@ -107,6 +107,13 @@ public class GameModel {
         hadAnimals = true;
     }
 
+    public Animal addAnimal() {
+        Animal lion = new Lion(0, 0, 0, time);
+        animals.add(lion);
+        lion.setGameModel(this);
+        return lion;
+    }
+
     public void addCheetah(float tileX, float tileZ) {
         Animal cheetah = new Cheetah(tileX, 0, tileZ, time);
         animals.add(cheetah);
@@ -392,5 +399,18 @@ public class GameModel {
 
     public void resetMonthlyVisitorCount() {
         monthlyVisitorCount = 0;
+    }
+
+    public void updateAnimals(float delta) {
+        Iterator<Animal> iterator = animals.iterator();  // 動物リストのイテレータを取得
+        while (iterator.hasNext()) {
+            Animal animal = iterator.next();
+            animal.update(delta, getTime(), animals);  // 動物の状態を更新
+
+            // 動物が削除対象かどうかを確認し、削除
+            if (animal.getMarkedForRemoval()) {
+                iterator.remove();  // 動物をリストから削除
+            }
+        }
     }
 }
